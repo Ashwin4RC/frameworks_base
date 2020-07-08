@@ -19,8 +19,20 @@
     android:id="@+id/type_clock"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_above="@id/date"
     android:paddingStart="50dp"
     android:textAlignment="viewStart"
     style="@style/widget_big"
-    android:textSize="40dp"
-    />
+    android:textSize="40dp">
+        <TextView
+        android:id="@+id/date"
+        style="@stype/widget_big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:letterSpacing="0.03"
+        android:gravity="left"
+        android:format12Hour="EEE, MMM d"
+        android:format24Hour="EEE, MMM d"
+        />
+</com.android.keyguard.clock.TypographicClock>

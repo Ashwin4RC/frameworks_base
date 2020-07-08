@@ -24,6 +24,8 @@ import android.graphics.Paint.Style;
 import android.util.MathUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.internal.colorextraction.ColorExtractor;
 import com.android.systemui.R;
@@ -69,8 +71,13 @@ public class TypeClockController implements ClockPlugin {
     /**
      * Custom clock shown on AOD screen and behind stack scroller on lock.
      */
-    private View mView;
+    private ViewGroup mView;
     private TypographicClock mTypeClock;
+
+    /**
+     * Date showing below time in preview view hierarchy.
+     */
+    private TextView mTextDate;
 
     /**
      * Small clock shown on lock screen above stack scroller.
@@ -101,13 +108,14 @@ public class TypeClockController implements ClockPlugin {
     }
 
     private void createViews() {
-        mView = mLayoutInflater.inflate(R.layout.type_aod_clock, null);
+        mView = (ViewGroup) mLayoutInflater.inflate(R.layout.type_aod_clock, null);
         mTypeClock = mView.findViewById(R.id.type_clock);
 
         // For now, this view is used to hide the default digital clock.
         // Need better transition to lock screen.
         mLockClock = (TypographicClock) mLayoutInflater.inflate(R.layout.typographic_clock, null);
         mLockClock.setVisibility(View.GONE);
+        mTextDate = mView.findViewById(R.id.date);
 
         mDarkController = new CrossFadeDarkController(mView, mLockClock);
     }
@@ -116,6 +124,7 @@ public class TypeClockController implements ClockPlugin {
     public void onDestroyView() {
         mView = null;
         mTypeClock = null;
+        mTextDate = null;
         mLockClock = null;
         mDarkController = null;
     }
@@ -184,6 +193,7 @@ public class TypeClockController implements ClockPlugin {
     @Override
     public void setTextColor(int color) {
         mTypeClock.setTextColor(color);
+        mTextDate.setTextColor(color);
         mLockClock.setTextColor(color);
     }
 
